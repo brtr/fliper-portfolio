@@ -15,13 +15,14 @@ class NftFlipRecordsService
           events = data["asset_events"]
           events.each do |event|
             asset = event["asset"]
+            seller = event["seller"]["address"].downcase
             contract = asset["asset_contract"]
             schema_name = contract["schema_name"] rescue ""
-            next if asset.nil? || asset["num_sales"] < 2 || !["ERC721", "METAPLEX"].include?(schema_name)
+            next if asset.nil? || asset["num_sales"] < 2 || !["ERC721", "METAPLEX"].include?(schema_name) || seller != fliper.address.downcase
             token_address = contract["address"]
             slug = asset["collection"]["slug"]
             token_id = schema_name == "ERC721" ? asset["token_id"] : asset["name"].split("#").last
-            last_trade = fetch_last_trade(token_address, event["seller"]["address"], slug, token_id, schema_name)
+            last_trade = fetch_last_trade(token_address, seller, slug, token_id, schema_name)
             next unless last_trade.present?
             nft = Nft.where(address: token_address, opensea_slug: slug).first_or_create
             chain_id = schema_name == "ERC721" ? 1 : 101

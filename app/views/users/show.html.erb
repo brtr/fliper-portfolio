@@ -1,0 +1,35 @@
+<div class="container zindex-5 pb-4 mb-md-3 mt-5 mx-auto col-8">
+  <div class="row">
+    <!-- Sidebar-->
+    <div class="mb-lg-0">
+      <div class="bg-light rounded-3 shadow-lg">
+        <div class="px-4 py-4 mb-1 text-center">
+          <h6 class="mb-0 pt-1"><%= @user.address %></h6></span>
+        </div>
+        <div class="d-lg-none px-4 pb-4 text-center"><a class="btn btn-primary px-5 mb-2" href="#account-menu" data-bs-toggle="collapse"><i class="ai-menu me-2"></i>Account menu</a></div>
+        <div class="d-lg-block collapse pb-2" id="account-menu">
+          <h3 class="d-block bg-secondary fs-sm fw-semibold text-muted mb-0 px-4 py-3">Dashboard</h3>
+          <a class="d-flex align-items-center nav-link-style px-4 py-3">
+            Successful Rate<span class="text-muted fs-sm fw-normal ms-auto"><%= @user.successful_rate %></span>
+          </a>
+          <a class="d-flex align-items-center nav-link-style px-4 py-3 border-top">
+            Flip Count<span class="text-muted fs-sm fw-normal ms-auto"><%= @user.flip_count %></span>
+          </a>
+          <a class="d-flex align-items-center nav-link-style px-4 py-3 border-top">
+            Flip Gap<span class="text-muted fs-sm fw-normal ms-auto"><%= humanize_gap @user.flip_gap %></span>
+          </a>
+          <a class="d-flex align-items-center nav-link-style px-4 py-3 border-top">
+            Flip Revenue<span class="text-muted fs-sm fw-normal ms-auto"><%= decimal_format @user.flip_revenue %></span>
+          </a>
+        </div>
+      </div>
+      <div class="chart">
+        <%= render "flip_data_chart" %>
+        <%= render "flip_profit_chart" %>
+      </div>  
+    </div>
+  </div>
+  <div id="syncBtn">
+    <%= link_to "Sync", sync_user_flip_records_path, class: "btn btn-warning", method: :post %>
+  </div>
+</div>
