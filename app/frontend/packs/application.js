@@ -67,10 +67,6 @@ const login = function() {
         url: "/login",
         method: "post",
         data: { address: loginAddress }
-    }).done(function(data) {
-        if (data.success) {
-            location.href = `/users/${loginAddress}`;
-        }
     })
 }
 

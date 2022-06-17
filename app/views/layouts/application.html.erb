@@ -19,10 +19,7 @@
           <button class="navbar-toggler ms-n2 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <a class="navbar-brand flex-shrink-0 order-lg-1 mx-auto ms-lg-0 pe-lg-2 me-lg-4" href="/">
-            <%#= image_tag "logo.png", class: "d-none d-lg-block", width: "153" %>
-            <h3>Fliper Portfolio</h3>
-          </a>
+          <%= link_to "Fliper Portfolio", home_path, class: "navbar-brand flex-shrink-0 order-lg-1 mx-auto ms-lg-0 pe-lg-2 me-lg-4" %>
           <div class="d-flex align-items-center order-lg-3 ms-lg-auto loginBtns">
             <div class="navbar-tool dropdown connect-btn">
               <%= button_tag "Connect MetaMask", class: "btn btn-warning metamask_login" %>
@@ -51,7 +48,7 @@
               <!-- Menu-->
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <%= link_to t("views.title.home"), root_path, class: "nav-link #{@page_index == 0 ? 'active' : ''}" %>
+                  <%= link_to t("views.title.home"), home_path, class: "nav-link" %>
                 </li>
               </ul>
             </div>

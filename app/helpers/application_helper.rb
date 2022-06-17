@@ -36,4 +36,8 @@ module ApplicationHelper
       "#{days} days #{hours.round(2)} hours"
     end
   end
+
+  def home_path
+    current_user ? user_path(current_user.address) : root_path
+  end
 end

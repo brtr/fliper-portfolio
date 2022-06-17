@@ -2,10 +2,9 @@ class UsersController < ApplicationController
   def login
     user = Fliper.where(address: params[:address]).first_or_create
     session[:user_id] = user.id
-    is_subscribed = Time.now < user.subscription_date rescue false
     SyncFlipRecordsJob.perform_later(user)
 
-    render json: {success: true, is_subscribed: is_subscribed}
+    redirect_to user_path(user.address), notice: "Sync data successfully, please reload page after 5 minutes"
   end
 
   def logout
@@ -15,10 +14,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    #@user = Fliper.find_by(address: params[:address])
-    @user = Fliper.first
+    @user = Fliper.find_by(address: params[:address])
 
-    data = FlipChartService.new(start_at: Time.now - 1.month, fliper_address: @user.address)
+    data = FlipChartService.new(start_at: Time.now - 1.week, fliper_address: @user.address)
     @flip_data_chart = data.get_flip_data
     @flip_profit_chart = data.get_flip_profit
   end
@@ -28,6 +26,6 @@ class UsersController < ApplicationController
 
     SyncFlipRecordsJob.perform_later(user)
 
-    redirect_to user_path(user.address)
+    redirect_to user_path(user.address), notice: "Sync data successfully, please reload page after 5 minutes"
   end
 end
