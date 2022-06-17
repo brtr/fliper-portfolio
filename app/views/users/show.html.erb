@@ -1,7 +1,7 @@
 <div class="container zindex-5 pb-4 mb-md-3 mt-5 mx-auto col-8">
   <div class="row">
     <!-- Sidebar-->
-    <div class="mb-lg-0">
+    <div class="mb-lg-0 position-relative">
       <div class="bg-light rounded-3 shadow-lg">
         <div class="px-4 py-4 mb-1 text-center">
           <h6 class="mb-0 pt-1"><%= @user.address %></h6></span>
@@ -26,10 +26,10 @@
       <div class="chart">
         <%= render "flip_data_chart" %>
         <%= render "flip_profit_chart" %>
-      </div>  
+      </div>
+      <div id="syncBtn">
+        <%= link_to "Sync", sync_user_flip_records_path, class: "btn btn-warning", method: :post %>
+      </div>
     </div>
-  </div>
-  <div id="syncBtn">
-    <%= link_to "Sync", sync_user_flip_records_path, class: "btn btn-warning", method: :post %>
   </div>
 </div>
