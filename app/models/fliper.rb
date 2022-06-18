@@ -16,4 +16,9 @@ class Fliper < ApplicationRecord
   def flip_revenue
     nft_flip_records.sum(&:revenue)
   end
+
+  def rank
+    rank = Fliper.all.sort_by{|f| f.successful_rate}.reverse.index(self)
+    rank == 0 ? 0 : rank + 1
+  end
 end
